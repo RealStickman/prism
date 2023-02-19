@@ -64,7 +64,7 @@ npm run start
 The second command starts a built-in webserver. Locate the prism.js file included in this plugin, and view the source, Find the build URL and paste that into your browser. It should look something like:
 
 ```
-http://127.0.0.1:8080/download.html#themes=prism&languages=markup+css+clike+javascript+apacheconf+bash+bbcode+c+csharp+cpp+coffeescript+css-extras+diff+docker+ecscript+git+go+java+json+json5+less+lua+markdown+markup-templating+php+php-extras+powershell+python+regex+ruby+sass+scss+sql+twig+yaml&plugins=line-highlight+line-numbers+command-line+toolbar+copy-to-clipboard
+http://127.0.0.1:8080/download.html#themes=prism&languages=markup+css+clike+javascript+apacheconf+bash+bbcode+c+csharp+cpp+css-extras+diff+docker+git+go+ini+java+json+json5+less+makefile+markdown+markup-templating+nginx+powershell+python+regex+ruby+rust+sass+scss+sql+systemd+twig+yaml&plugins=line-highlight+line-numbers+command-line+toolbar+copy-to-clipboard
 ```
 
 This pre-configures the languages, plugins, etc.
@@ -72,3 +72,9 @@ This pre-configures the languages, plugins, etc.
 Make your changes, including adding additional languages, plugins etc. Then click DOWNLOAD JS and DOWNLOAD CSS buttons and upload your copies to a safe location, e.g. /user/data/prims-highlight/.
 
 You can then edit the configuration of the prism-highlight plugin and point the custom.js_location and custom.css_location options to the custom file locations (default is already user://data/prismjs folder).
+
+Modify the JS function `navigator.clipboard.writeText` by adding `.replace(/^[\$\s\#\$]{1,4}/gm, '')` after `e.getText()`
+
+```js
+...function(e,o){e.addEventListener("click",(function(){!function(e){navigator.clipboard?navigator.clipboard.writeText(e.getText().replace(/^[\$\s\#\$]{1,4}/gm, '')).then(e.success,(function(){t(e)})):t(e)}(o)}))}(c,{getText:function(){return...
+```
